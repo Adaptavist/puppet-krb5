@@ -1,0 +1,6 @@
+fixtures:
+  repositories:
+    stdlib:
+      repo: "https://github.com/Adaptavist/puppet-stdlib"
+  symlinks:
+    krb5: "#{source_dir}"

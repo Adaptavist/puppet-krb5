@@ -1,0 +1,63 @@
+### File managed with puppet ###
+#### Served by:        '<%= scope.lookupvar('::servername') %>'
+#### Module:           '<%= scope.to_hash['module_name'] %>'
+#### Template source:  '<%= template_source %>'
+
+[logging]
+<%- scope.lookupvar('manage_options_logging').sort.each do |name, value| -%>
+  <%- next if value.to_s == 'undef' -%>
+  <%= name %> = <%= value %>
+<%- end -%>
+
+[libdefaults]
+<%- scope.lookupvar('manage_options_libdefaults').sort.each do |name, value| -%>
+  <%- next if value.to_s == 'undef' -%>
+  <%= name %> = <%= value %>
+<%- end -%>
+
+[appdefaults]
+<%- scope.lookupvar('manage_options_appdefaults').sort.each do |name, value| -%>
+  <%- next if value.to_s == 'undef' -%>
+  <%- if value.kind_of? Hash -%>
+    <%= name %> = {
+    <%- value.each do |opt_name, opt_value| -%>
+      <%- next if opt_value.to_s == 'undef' -%>
+      <%= opt_name %> = <%= opt_value %>
+    <%- end -%>
+    }
+  <%- elsif value.kind_of? String -%>
+  <%= name %> = <%= value %>
+  <%- end -%>
+<%- end -%>
+
+[realms]
+<%- scope.lookupvar('manage_options_realms').each do |realm| -%>
+  <%- realm.sort_by{|k,v| v}.each do |realm_name, options| -%>
+  <%- next if options.to_s == 'undef' -%>
+  <%= realm_name -%> = {
+    <%- options.sort.each do |opt_name, opt_value| -%>
+      <%- next if opt_value.to_s == 'undef' -%>
+      <%- if opt_value.kind_of? Array -%>
+        <%- opt_value.sort.each do |subopt_value| -%>
+    <%= opt_name %> = <%= subopt_value %>
+        <%- end -%>
+      <%- elsif opt_value.kind_of? Hash -%>
+    <%= opt_name %> = {
+        <%- opt_value.each do |subopt_name, subopt_value| -%>
+          <%- next if subopt_value.to_s == 'undef' -%>
+      <%= subopt_name %> = <%= subopt_value %>
+        <%- end -%>
+    }
+      <%- else -%>
+    <%= opt_name %> = <%= opt_value %>
+      <%- end -%>
+    <%- end -%>
+  }
+  <%- end -%>
+<%- end -%>
+
+[domain_realm]
+<%- scope.lookupvar('manage_options_domain_realm').sort_by{|k,v| v}.each do |name, value| -%>
+  <%- next if value.to_s == 'undef' -%>
+  <%= name %> = <%= value %>
+<%- end -%>
