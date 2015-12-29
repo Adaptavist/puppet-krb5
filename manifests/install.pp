@@ -19,10 +19,12 @@ class krb5::install(
       default:            { fail("Unsupported platform: ${::operatingsystem} or version ${::lsbmajdistrelease}") }
     }
 
+  $package_ensure =  $absent ? {
+    true  => 'absent',
+    false => 'present'
+  }
+  
   package { $package:
-    ensure => $absent ? {
-        true => 'absent',
-        false => 'present'
-    },
+    ensure => $package_ensure
   }
 }

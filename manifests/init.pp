@@ -30,9 +30,9 @@ class krb5(
   $audit_only = false,
   $template = 'krb5/krb5.conf.erb',
 ){
-  class { "krb5::install":
+  class { 'krb5::install':
     absent => $absent,
   } ->
-  class { "krb5::config": } ~>
-  Class["krb5"]
+  class { 'krb5::config': } ~>
+  Class['krb5']
 }
