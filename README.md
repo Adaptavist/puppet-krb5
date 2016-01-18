@@ -1,4 +1,5 @@
 # krb5
+[![Build Status](https://travis-ci.org/Adaptavist/puppet-krb5.svg?branch=master)](https://travis-ci.org/Adaptavist/puppet-krb5)
 
 Install and configure kerberos krb5 on CentOS Linux.
 
