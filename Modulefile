@@ -1,5 +1,5 @@
 name    'adaptavist-krb5'
-version '0.1.6'
+version '1.0.0'
 author 'Evgeny Zislis <ezislis@adaptavist.com>'
 summary 'Install and configure kerberos krb5' 
 license 'Apache2'

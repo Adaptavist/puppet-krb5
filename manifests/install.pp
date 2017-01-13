@@ -23,7 +23,7 @@ class krb5::install(
     true  => 'absent',
     false => 'present'
   }
-  
+
   package { $package:
     ensure => $package_ensure
   }
